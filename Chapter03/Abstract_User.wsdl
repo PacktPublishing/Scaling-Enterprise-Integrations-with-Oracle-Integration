@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions targetNamespace="urn:UserWSDL" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:UserWSDL"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:weo="http://www.example.org">
+  <types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.example.org" elementFormDefault="qualified">
+  <xsd:element name="request">
+    <xsd:annotation>
+      <xsd:documentation>User Document</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PageNumber" type="xsd:integer"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+<xsd:element name="users">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="user" maxOccurs="unbounded" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element type="xsd:integer" name="Id"/>
+              <xsd:element type="xsd:string" name="FirstName"/>
+              <xsd:element type="xsd:string" name="LastName"/>
+              <xsd:element type="xsd:string" name="Email"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="fault">
+    <xsd:complexType>
+      <xsd:sequence>
+	      <xsd:element name="errorCode" type="xsd:string"/>
+        <xsd:element name="error" type="xsd:string"/>
+		    <xsd:element name="errorDetails" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
+  </types>
+  <portType name="UserServicePort">
+    <operation name="GetUserOP">
+      <input message="tns:UserRequestPort"/>
+      <output message="tns:UserResponsePort"/>
+      <fault name="UserFault" message="tns:UserSeriveFault"/>     
+    </operation>
+  </portType>
+  <message name="UserRequestPort">
+    <part name="part" element="weo:request"/>
+  </message>
+  <message name="UserResponsePort">
+    <part name="part" element="weo:users"/>
+  </message>
+  <message name="UserSeriveFault">
+    <part name="part" element="weo:fault"/>
+  </message> 
+</definitions>
