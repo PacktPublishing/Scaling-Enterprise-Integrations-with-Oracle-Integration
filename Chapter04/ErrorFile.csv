@@ -1,0 +1,5 @@
+Id,ErrorDetails
+1,Firstname and last name is missing
+2,Email address is missing
+3,Email address is missing
+4,Firstname having integer values
